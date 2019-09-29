@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class="center">
+{% load staticfiles %}
+<meta http-equiv="content-type" content="text/html" charset="utf-8" />
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+<title>Задачи</title>
+<body>
+<div>
+    <h2>Редактируем задачу</h2>
+    <p>{{ message }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="hidden" name=backlink value="{{ backlink }}"/>
+        <input type="submit" value="Сохранить" class="button" />
+        <input type="button" value="Закрыть" class="button" onclick="document.location.href='{{ backlink }}'" />
+    </form>
+</div>
+</body>
+</html>

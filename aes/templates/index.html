@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load staticfiles %}
+<meta http-equiv="content-type" content="text/html" charset="utf-8" />
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+<title>Главная страница</title>
+<div id=header>Партнёры <a href="/logout/">Выйти</a></div>
+<div id=left>
+        {% for org in organisations %}
+        <a {% if org.id == currentOrg.id  %}class="active"{% endif %} href="/internship/org{{ org.id }}/">{{ org.title }}</a>
+        {% endfor %}
+        <a class=add href="/internship/org/?action=create"><img src="{% static "img/cross.png" %}" /></a>
+
+    </div>
+<div id=right>
+	<div align="right"><a href="/tasks/?action=create"><img src="{% static "img/cross.png" %}" /></a></div>
+	{% for task in tasks %}
+	<div class="list_item {% if task.days_until < 0 %}deadline{% elif  task.days_until < 3 %}deadline3{% elif  task.days_until < 10 %}deadline10{% endif %}">
+		<div class=buttons>
+			<a href="/tasks/?action=edit&id={{ task.id }}" class=edit></a>
+			<a href="/tasks/?action=delete&id={{ task.id }}" class=delete></a>
+		</div>
+		<span class=date>Срок: {{ task.deadline }}</span>
+		{% if task.org != '' %}<span class=org><a href="/internship/org{{task.org.id}}/">{{ task.org }}</a></span>{% endif %}
+		<p>{{ task.description|linebreaks }}</p>
+	</div>
+	{% endfor %}
+</div>
+<div id=center>
+	<div class="slide">
+		<input type="checkbox" id="org"/>
+		<label for="org" class="arrow">{{ currentOrg.titleFull }}
+			<a href="/internship/org{{ currentOrg.id }}/?action=edit" class="edit_text">
+				<img src="{% static "img/pencil_grey.png" %}" />
+			</a>
+		</label>
+		<div class="info slide_hide">
+			<p class=address>{{ currentOrg.address }}</p>
+			<p class=site><a href="{{ currentOrg.site }}" target="new" class="nolink">{{ currentOrg.site }}</a></p>
+			<p class=mail>{{ currentOrg.mail }}</p>
+			<p class=phone>{{ currentOrg.phone }}</p>
+			{% if currentOrg.terms != "" %}
+			<div class="slide subinfo">
+				<input type="checkbox" id="mrk"/>
+				<label for="mrk" class="arrow">Условия проведения практики</label>
+				<div class="colorised slide_hide">{{ currentOrg.terms|linebreaks }}</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="docs">
+		<h2>Документы <a href="/internship/org{{ currentOrg.id }}/doc/?action=create"><img src="{% static "img/cross.png" %}" class=img_button /></a></h2>
+		<div class="container">
+			{% for doc in docs %}
+			<div class="line">
+				<a href="/download/{{ doc.file }}" target="new" class="nolink">
+				{% if doc.description != "" %}{{ doc.description }}{% endif %}
+				{% if doc.number != "" %} № {{ doc.number }}{% endif %}
+				{% if doc.date != Null %} от {{ doc.date|date:"d.m.Y" }} г.{% endif %}
+				</a>
+				<a href="/internship/org{{ currentOrg.id }}/doc{{ doc.id }}/?action=edit" class="edit"></a>
+				<a href="/internship/org{{ currentOrg.id }}/doc{{ doc.id }}/?action=delete" class="delete"></a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div id=employees><a name="employees"></a>
+		<h2>Сотрудники<a href="/internship/org{{ currentOrg.id }}/emp/?action=create"><img src="{% static "img/cross.png" %}" class=img_button /></a></h2>
+		{% for emp in emps %}
+		<div class="employee slide width30 {% if emp.prakt  %}prakt{% endif %}">
+			<div class=buttons>
+				<a href="/internship/org{{ currentOrg.id }}/emp{{ emp.id }}/?action=edit" class=edit></a>
+				<a href="/internship/org{{ currentOrg.id }}/emp{{ emp.id }}/?action=delete" class=delete></a>
+			</div>
+			<div class="emp_container">
+				<input type="checkbox" id="emp{{emp.id}}"/>
+				<label for="emp{{emp.id}}">
+					<span class=lname>{{ emp.lname }}</span>
+					<span class=fname>{{ emp.fname }}</span>
+					<span class=sname>{{ emp.sname }}</span>
+				</label>
+				<div class="extra_emp_info slide_hide">
+					{% if emp.post %}<span>{{ emp.post }}</span>{% endif %}
+					{% if emp.phone %}<span>{{ emp.phone }}</span>{% endif %}
+					{% if emp.email %}<span><a onclick="javascript:window.open('mailto:{{ emp.email }}', 'mail');event.preventDefault()" href="mailto:{{ emp.email }}">{{ emp.email }}</a></span>{% endif %}
+
+					{% if emp.comment %}<span>{{ emp.comment }}</span>{% endif %}
+					<span class=event_links>
+						<a href="evt/?action=create&emp={{emp.id}}&type=incall" title="Входящий звонок"><img src="{% static "img/incall.png" %}"/></a>
+						<a href="evt/?action=create&emp={{emp.id}}&type=inmail" title="Входящая почта"><img src="{% static "img/inmail.png" %}"/></a>
+						<a href="evt/?action=create&emp={{emp.id}}&type=outcall" title="Исходящий звонок"><img src="{% static "img/outcall.png" %}"/></a>
+						<a href="evt/?action=create&emp={{emp.id}}&type=outmail" title="Исходящая почта"><img src="{% static "img/outmail.png" %}"/></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<div class=events><a name="events"></a>
+		<h2>Последние события<a href="/internship/org{{ currentOrg.id }}/evt/?action=create"><img src="{% static "img/cross.png" %}" class=img_button /></a></h2>
+		{% if currentOrg.maildir %}
+			Перейти в почту: <a href="{{mailbox}}#folder/{{currentOrg.maildir}}" target="_blank" class="mailboxlink">Входящие</a>
+			{% if orgdomen != "" %}<a href="{{mailbox}}#search?request={{orgdomen}}&fid=4" target="_blank" class="mailboxlink">Исходящие</a>{% endif %}
+		{% endif %}
+		<div class=container>
+			{% for evt in evts %}
+			<div class="line">
+				<div class=date><a href="/internship/org{{ currentOrg.id }}/evt{{ evt.id }}/?action=edit" class="edit_text" >ред</a>{{ evt.date|date:"d.m.Y" }}</div>
+				<div class="person {{ evt.type.css }}">{% if evt.person %}{{ evt.person }}{% else %}-{% endif %}</div>
+				<p>{{ evt.description }}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

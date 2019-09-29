@@ -1,0 +1,190 @@
+html, body {margin: 0; padding: 0; width: 100%; height: 100%; min-height: 100%;}
+body {font-family: Arial; background-color: #E6E6E6; position: relative;}
+#header {height: 50px;}
+#content {position: relative; overflow: hidden;}
+#left {
+	width: 250px;
+	position: absolute;
+	top: 50px;	left: 0; bottom: 0;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #CCC #999;
+}
+#left a {
+	display: block;
+	padding: 5px 10px;
+	margin: 5px 10px;
+	text-decoration: none;
+	color: black;
+	border-radius: 8px;
+}
+#left a.edit {display: inline;}
+#left a:hover {background: #E0E0E0;}
+#left a.active {background: #CCC;}
+#left a.add {color: #6699FF; background: transparent; display: inline;}
+#right {
+	position: absolute;
+	top: 50px;
+	right: 5px;
+	bottom: 0;
+	width: 250px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #CCC #999;
+}
+.list_item {
+	background-color: #CCC;
+	border-radius: 12px;
+	margin: 10px;
+	padding: 10px;
+}
+.list_item:hover {background-color: #D1D1D1;}
+.list_item .buttons {
+    display: none;
+	background-color: #999;
+	float: right;
+	margin: -10px -10px 0 0;
+	padding: 0 5px;
+	border-top-right-radius: 12px;
+}
+.list_item:hover .buttons {display: block;}
+.list_item .buttons a {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+.deadline {background-color: #FF5757;}
+.deadline:hover {background-color: #FF7F7F;}
+.deadline3 {background-color: #FF883F;}
+.deadline3:hover {background-color: #FFA571;}
+.deadline10 {background-color: #ECFC05;}
+.deadline10:hover {background-color: #F5FF71;}
+.list_item .buttons a.edit {background: url('../img/edit.png') center center no-repeat;}
+.list_item .buttons a.delete {background: url('../img/delete.png') center center no-repeat;}
+.list_item .date, .list_item .org {
+	display: block;
+	font-size: 0.8em;
+}
+#center {
+	position: absolute;
+	top: 50px; left: 260px; right: 270px; bottom: 0;
+	padding: 0 10px 0 0;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #CCC #999;
+}
+#center .info {margin: 1em 0 1em 3em;}
+#center .info p {margin: 3px; line-height: 1.5em;}
+#center .info .address {padding-left: 30px; background: url('../img/address.png') center left no-repeat;}
+#center .info .site {padding-left: 30px; background: url('../img/site.png') center left no-repeat;}
+#center .info .mail {padding-left: 30px; background: url('../img/mail.png') center left no-repeat;}
+#center .info .phone {padding-left: 30px; background: url('../img/phone.png') center left no-repeat;}
+a {text-decoration:none; color: #000; #6699FF;}
+a.nolink:hover {color: #6699FF;}
+
+.docs .container {margin-left: 2em;}
+.docs .line {margin: 0.5em 0;}
+.docs a.edit, .docs a.delete {
+    width: 20px;
+	height: 0.9em;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: none;
+}
+.docs a.edit {background-image: url('../img/edit_grey.png')}
+.docs a.delete {background-image: url('../img/delete_grey.png')}
+.docs .line:hover a.edit, .docs .line:hover a.delete {display: inline-block;}
+
+.employee {
+	display: inline-block;
+	vertical-align: top;
+	background-color: #CCC; 
+	border-radius: 18px;
+}
+.employee.width30 {width: 32.5%; margin: 2px 0.1%;}
+.employee.prakt {background-color: orange;}
+.employee span {display: block; margin: 5px 0; font-size: 0.9em;}
+.employee .lname {font-weight: bold; font-size: 1.5em;}
+.employee .fname {font-weight: bold; font-size: 1.2em; display: inline;}
+.employee .sname {font-weight: bold; font-size: 1.2em; display: inline;}
+.employee .buttons {
+    display: none;
+	background-color: #999;
+	float: right;
+	padding: 0 5px;
+	border-top-right-radius: 18px;
+}
+.employee:hover .buttons {display: block;}
+.employee .emp_container {margin: 15px;}
+.employee .event_links {text-align: right;}
+.employee .event_links a {margin: 0 5px;}
+.employee .buttons a {
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+}
+a.edit {background: url('../img/edit_soft_grey.png') center center no-repeat;}
+a.edit:hover {background-image: url('../img/edit.png')}
+a.delete {background: url('../img/delete_soft_grey.png') center center no-repeat;}
+a.delete:hover {background-image: url('../img/delete.png')}
+a.mailboxlink {padding: 0em 0 1em 2em; display: inline-block;}
+a.mailboxlink:hover {color: #6699FF;}
+.employee:hover {background-color: #D1D1D1}
+.employee.prakt {background-color: #AFC7F7}
+.employee.prakt:hover {background-color: #C4D4F5}
+
+.events .container {
+	background-color: #CCC; 
+	border-radius: 18px; 
+	padding: 10px;
+	margin-bottom: 5px;
+}
+.events .container .line:first-child {border-top-left-radius: 10px; border-top-right-radius: 10px; margin-top: 0;}
+.events .container .line:last-child {border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; margin-bottom: 0;}
+.events .line {background-color: #E6E6E6; margin: 5px 0; padding: 10px;}
+.events .date {float: right; font-size: 0.8em;}
+.events .line .date a {display: none; margin-right: 1em;}
+.events .line:hover .date a {display: inline-block;}
+.events .person {padding-left: 25px; font-size: 0.8em;}
+.events .outcall {background: url('../img/outcall.png') center left no-repeat;}
+.events .incall {background: url('../img/incall.png') center left no-repeat;}
+.events .outmail {background: url('../img/outmail.png') center left no-repeat;}
+.events .inmail {background: url('../img/inmail.png') center left no-repeat;}
+.events p {margin: 5px 0 0 25px;}
+
+label {width: 10em; display: inline-block; text-align: left;}
+input {width: 30em;}
+#id_date {width: 6em;}
+#id_deadline {width: 9em;}
+textarea {width: 41em; height: 3.5em;}
+input, textarea, select {font-family: arial; font-size: 0.9em;}
+.button {width: 200px; margin:10px 50px;}
+.img_button {margin-left: 20px;}
+.edit_text {
+    width: 40px; height: 15px;
+    display: inline-block;
+    color: grey;
+    text-decoration: none;
+    padding-left: 2em;
+}
+
+html.center {display: table}
+html.center body {display: table-cell; vertical-align: middle; text-align: center;}
+html.center div {margin: auto; text-align: left; width: 40em;}
+html.center h2 {text-align: center;}
+
+.slide label {cursor: pointer; width: auto;}
+.slide .subinfo {margin-left: -3em; margin-top:1em;}
+.slide label.arrow {padding-left: 20px; background: url('../img/arr_down.png') center left no-repeat;}
+.slide div.slide_hide,
+.slide div.subsinfo,
+.slide [type="checkbox"] {display:none;}
+.slide [type="checkbox"]:checked ~ div.slide_hide {display:block;}
+.slide [type="checkbox"]:checked + label.arrow {background-image: url('../img/arr_up.png');}
+.slide div.colorised {padding-left: 20px; font-size: 0.9em; background-color: #CCC;}
+
+
+
+@media (max-width: 1200px) {
+    .employee.width30 {width: 49%;}
+}
