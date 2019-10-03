@@ -79,50 +79,50 @@ class Tasks(models.Model):
         return (self.deadline - timezone.now().date()).days
 
 
-class Students(models.Model):
-    fname = models.CharField(max_length=20, verbose_name="Имя")
-    sname = models.CharField(max_length=20, verbose_name="Отчество")
-    lname = models.CharField(max_length=20, verbose_name="Фамилия")
-    enter_year = models.IntegerField(verbose_name="Год зачисления")
-    vk_link = models.URLField(verbose_name="Ссылка на личку")
-    password = models.CharField(verbose_name="Номер паспорта (пароль)")
-
-    def __unicode__(self):
-        return '%s %s. %s.' % (self.lname, self.fname[0], self.sname[0])
-
-    class Meta:
-        ordering = ('lname',)
-
-
-class PracticeType(models.Model):
-    type = models.CharField(max_length=150, verbose_name="Тип практики")
-
-    class Meta:
-        verbose_name = 'Тип практики'
-        verbose_name_plural = 'Типы практик'
+# class Students(models.Model):
+#     fname = models.CharField(max_length=20, verbose_name="Имя")
+#     sname = models.CharField(max_length=20, verbose_name="Отчество")
+#     lname = models.CharField(max_length=20, verbose_name="Фамилия")
+#     enter_year = models.IntegerField(verbose_name="Год зачисления")
+#     vk_link = models.URLField(verbose_name="Ссылка на личку")
+#     password = models.CharField(verbose_name="Номер паспорта (пароль)")
+#
+#     def __unicode__(self):
+#         return '%s %s. %s.' % (self.lname, self.fname[0], self.sname[0])
+#
+#     class Meta:
+#         ordering = ('lname',)
 
 
-class Practice(models.Model):
-    year = models.IntegerField(verbose_name="Год проведения")
-    course = models.IntegerField(verbose_name="Курс")
-    type = models.ForeignKey(PracticeType, on_delete=models.SET_NULL, blank=False, null=True, verbose_name="Тип практики")
-    start_date = models.DateField(verbose_name="Дата начала")
-    end_date = models.DateField(verbose_name="Дата завершения")
-    editable = models.BooleanField(verbose_name="Возможность редактирования", default=False)
-
-    class Meta:
-        verbose_name = 'Практика'
-        verbose_name_plural = 'Практики'
+# class PracticeType(models.Model):
+#     type = models.CharField(max_length=150, verbose_name="Тип практики")
+#
+#     class Meta:
+#         verbose_name = 'Тип практики'
+#         verbose_name_plural = 'Типы практик'
 
 
-class PracticePriorities(models.Model):
-    practice = models.ForeignKey(Practice, on_delete=models.SET_NULL, blank=False, null=True, verbose_name="Практика")
-    student = models.ForeignKey(Students, on_delete=models.SET_NULL, blank=False, null=True, verbose_name="Студент")
-    priority_1 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №1")
-    priority_2 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №2")
-    priority_3 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №3")
-    priority_4 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №4")
-    practice_place = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Место прохождения практики")
+# class Practice(models.Model):
+#     year = models.IntegerField(verbose_name="Год проведения")
+#     course = models.IntegerField(verbose_name="Курс")
+#     type = models.ForeignKey(PracticeType, on_delete=models.SET_NULL, blank=False, null=True, verbose_name="Тип практики")
+#     start_date = models.DateField(verbose_name="Дата начала")
+#     end_date = models.DateField(verbose_name="Дата завершения")
+#     editable = models.BooleanField(verbose_name="Возможность редактирования", default=False)
+#
+#     class Meta:
+#         verbose_name = 'Практика'
+#         verbose_name_plural = 'Практики'
+
+
+ # class PracticePriorities(models.Model):
+ #    practice = models.ForeignKey(Practice, on_delete=models.SET_NULL, blank=False, null=True, verbose_name="Практика")
+ #    student = models.ForeignKey(Students, on_delete=models.SET_NULL, blank=False, null=True, verbose_name="Студент")
+ #    priority_1 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №1")
+ #    priority_2 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №2")
+ #    priority_3 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №3")
+ #    priority_4 = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Приоритет №4")
+ #    practice_place = models.ManyToManyField(Org, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Место прохождения практики")
 
 
 class AcademicDegree(models.Model):
